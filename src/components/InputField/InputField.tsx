@@ -1,9 +1,8 @@
 import { useField } from "formik";
 import { TextInput, TextInputProps } from "@gravity-ui/uikit";
-import { FormRow } from "@gravity-ui/components";
-import { Label } from "../Label/Label";
 import { ChangeEvent, FocusEvent } from "react";
 import { applyMask, MaskName } from "../../utils/applyMask";
+import { FormFieldWrapper } from "../FormFieldWrapper/FormFieldWrapper";
 
 type InputFieldProps<K> = Omit<TextInputProps, "label" | "error"> & {
   name: string;
@@ -22,7 +21,7 @@ export const InputField = <T,>({
   apiError,
   description,
   mask,
-  required = false,
+  required,
   ...textInputProps
 }: InputFieldProps<T>) => {
   const [field, meta] = useField({
@@ -43,14 +42,21 @@ export const InputField = <T,>({
   };
 
   const handleTextInputBlur = (e: FocusEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e;
+    e.target.value = applyMask(value, mask);
+
     field.onBlur(e);
     textInputProps.onBlur?.(e);
   };
 
   return (
-    <FormRow
-      direction="column"
-      label={<Label text={label} required={required} annotation={labelAnnotation} />}
+    <FormFieldWrapper
+      label={label}
+      labelAnnotation={labelAnnotation}
+      required={required}
+      description={description}
       fieldId={textInputProps.id || name}
     >
       <TextInput
@@ -61,7 +67,6 @@ export const InputField = <T,>({
         onChange={handleTextInputChange}
         onBlur={handleTextInputBlur}
       />
-      {description && <FormRow.FieldDescription>{description}</FormRow.FieldDescription>}
-    </FormRow>
+    </FormFieldWrapper>
   );
 };
