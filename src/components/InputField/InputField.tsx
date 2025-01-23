@@ -4,7 +4,7 @@ import { ChangeEvent, FocusEvent } from "react";
 import { applyMask, MaskName } from "../../utils/applyMask";
 import { FormFieldWrapper } from "../FormFieldWrapper/FormFieldWrapper";
 
-type InputFieldProps<K> = Omit<TextInputProps, "label" | "error"> & {
+interface InputFieldProps<K> extends Omit<TextInputProps, "label" | "error"> {
   name: string;
   label?: K;
   labelAnnotation?: K extends string ? string : never;
@@ -12,18 +12,11 @@ type InputFieldProps<K> = Omit<TextInputProps, "label" | "error"> & {
   description?: string;
   mask?: MaskName;
   required?: boolean;
-};
+}
 
-export const InputField = <T,>({
-  name,
-  label,
-  labelAnnotation,
-  apiError,
-  description,
-  mask,
-  required,
-  ...textInputProps
-}: InputFieldProps<T>) => {
+export const InputField = <T,>(props: InputFieldProps<T>) => {
+  const { name, label, labelAnnotation, apiError, description, mask, required, ...textInputProps } = props;
+
   const [field, meta] = useField({
     name,
     type: "text",
