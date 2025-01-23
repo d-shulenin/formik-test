@@ -1,15 +1,18 @@
 import { Formik, FormikConfig, FormikValues, Form as FormikForm } from "formik";
-import { InputField } from "./InputField/InputField";
+import { ReactNode } from "react";
 
-type FormProps = FormikConfig<FormikValues>;
+type FormProps = FormikConfig<FormikValues> & {
+  children: ReactNode;
+};
 
-export const Form = (props: FormProps) => {
+export const Form = ({ children, ...formikProps }: FormProps) => {
   return (
-    <Formik initialValues={props.initialValues} validationSchema={props.validationSchema} onSubmit={props.onSubmit}>
-      <FormikForm>
-        <InputField label="Age" name="age" onChange={() => console.log("Age changed")} placeholder="Age" />
-        <button type="submit">Submit</button>
-      </FormikForm>
+    <Formik
+      initialValues={formikProps.initialValues}
+      validationSchema={formikProps.validationSchema}
+      onSubmit={formikProps.onSubmit}
+    >
+      <FormikForm>{children}</FormikForm>
     </Formik>
   );
 };

@@ -3,6 +3,7 @@ import { TextInput, TextInputProps } from "@gravity-ui/uikit";
 import { FormRow } from "@gravity-ui/components";
 import { Label } from "../Label/Label";
 import { ChangeEvent, FocusEvent } from "react";
+import { applyMask, MaskName } from "../../utils/applyMask";
 
 type InputFieldProps<K> = Omit<TextInputProps, "label" | "error"> & {
   name: string;
@@ -10,6 +11,7 @@ type InputFieldProps<K> = Omit<TextInputProps, "label" | "error"> & {
   labelAnnotation?: K extends string ? string : never;
   apiError?: string;
   description?: string;
+  mask?: MaskName;
   required?: boolean;
 };
 
@@ -19,6 +21,7 @@ export const InputField = <T,>({
   labelAnnotation,
   apiError,
   description,
+  mask,
   required = false,
   ...textInputProps
 }: InputFieldProps<T>) => {
@@ -30,6 +33,11 @@ export const InputField = <T,>({
   const formikError = meta.touched ? meta.error : undefined;
 
   const handleTextInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e;
+    e.target.value = applyMask(value, mask);
+
     field.onChange(e);
     textInputProps.onChange?.(e);
   };
