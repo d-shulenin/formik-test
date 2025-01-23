@@ -53,6 +53,7 @@ export const InputField = <T,>(props: InputFieldProps<T>) => {
       fieldId={textInputProps.id || name}
     >
       <TextInput
+        id={textInputProps.id || name}
         size="l"
         error={apiError || formikError}
         {...textInputProps}

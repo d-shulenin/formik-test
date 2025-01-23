@@ -3,7 +3,7 @@ import { FormFieldWrapper } from "../FormFieldWrapper/FormFieldWrapper";
 import { Checkbox, CheckboxProps } from "@gravity-ui/uikit";
 import { ChangeEvent, FocusEvent } from "react";
 
-interface CheckFieldProps<K> extends CheckboxProps {
+interface CheckboxFieldProps<K> extends CheckboxProps {
   name: string;
   label?: K;
   labelAnnotation?: K extends string ? string : never;
@@ -11,7 +11,7 @@ interface CheckFieldProps<K> extends CheckboxProps {
   description?: string;
 }
 
-export const CheckField = <T,>(props: CheckFieldProps<T>) => {
+export const CheckboxField = <T,>(props: CheckboxFieldProps<T>) => {
   const { name, label, labelAnnotation, required, description, ...checkboxProps } = props;
 
   const [field] = useField({ name, type: "checkbox" });
@@ -34,7 +34,14 @@ export const CheckField = <T,>(props: CheckFieldProps<T>) => {
       labelAnnotation={labelAnnotation}
       required={required}
     >
-      <Checkbox {...checkboxProps} {...field} onChange={handleCheckboxChange} onBlur={handleCheckboxBlur} />
+      <Checkbox
+        id={checkboxProps.id || name}
+        size="l"
+        {...checkboxProps}
+        {...field}
+        onChange={handleCheckboxChange}
+        onBlur={handleCheckboxBlur}
+      />
     </FormFieldWrapper>
   );
 };
