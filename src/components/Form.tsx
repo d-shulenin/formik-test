@@ -5,6 +5,7 @@ import { CheckboxField } from "./CheckboxField/CheckboxField";
 import { Submit } from "./Submit/Submit";
 import { RadioGroupField } from "./RadioGroupField/RadioGroupField";
 import { SelectField } from "./SelectField/SelectField";
+import { TextAreaField } from "./TextAreaField/TextAreaField";
 
 type FormProps = FormikConfig<FormikValues> & {
   children: ReactNode;
@@ -22,4 +23,5 @@ Form.InputField = InputField;
 Form.CheckboxField = CheckboxField;
 Form.RadioGroupField = RadioGroupField;
 Form.SelectField = SelectField;
+Form.TextAreaField = TextAreaField;
 Form.Submit = Submit;
