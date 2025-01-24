@@ -1,20 +1,30 @@
 import { Formik, FormikConfig, FormikValues, Form as FormikForm } from "formik";
-import { ReactNode } from "react";
 import { InputField } from "./InputField/InputField";
 import { CheckboxField } from "./CheckboxField/CheckboxField";
 import { Submit } from "./Submit/Submit";
 import { RadioGroupField } from "./RadioGroupField/RadioGroupField";
 import { SelectField } from "./SelectField/SelectField";
 import { TextAreaField } from "./TextAreaField/TextAreaField";
+import { Spin } from "@gravity-ui/uikit";
+import "./Form.css";
 
-type FormProps = FormikConfig<FormikValues> & {
-  children: ReactNode;
-};
+interface FormProps extends FormikConfig<FormikValues> {
+  isLoading?: boolean;
+}
 
-export const Form = ({ children, ...formikProps }: FormProps) => {
+export const Form = ({ isLoading = false, children, ...props }: FormProps) => {
   return (
-    <Formik validateOnChange={true} validateOnMount={true} {...formikProps}>
-      <FormikForm>{children}</FormikForm>
+    <Formik validateOnChange={true} validateOnMount={true} {...props}>
+      {(formik) => (
+        <FormikForm className="form">
+          {typeof children === "function" ? children(formik) : children}{" "}
+          {isLoading && (
+            <div className="spin__container">
+              <Spin />
+            </div>
+          )}
+        </FormikForm>
+      )}
     </Formik>
   );
 };
