@@ -4,6 +4,7 @@ import { InputField } from "./InputField/InputField";
 import { CheckboxField } from "./CheckboxField/CheckboxField";
 import { Submit } from "./Submit/Submit";
 import { RadioGroupField } from "./RadioGroupField/RadioGroupField";
+import { SelectField } from "./SelectField/SelectField";
 
 type FormProps = FormikConfig<FormikValues> & {
   children: ReactNode;
@@ -20,4 +21,5 @@ export const Form = ({ children, ...formikProps }: FormProps) => {
 Form.InputField = InputField;
 Form.CheckboxField = CheckboxField;
 Form.RadioGroupField = RadioGroupField;
+Form.SelectField = SelectField;
 Form.Submit = Submit;

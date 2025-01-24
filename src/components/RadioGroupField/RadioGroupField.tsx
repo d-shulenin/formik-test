@@ -10,7 +10,7 @@ interface RadioGroupFieldProps<K> extends RadioGroupProps {
   required?: boolean;
 }
 
-export function RadioGroupField<T>(props: RadioGroupFieldProps<T>) {
+export const RadioGroupField = <T,>(props: RadioGroupFieldProps<T>) => {
   const { name, label, labelAnnotation, description, required, ...radioGroupProps } = props;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,4 +32,4 @@ export function RadioGroupField<T>(props: RadioGroupFieldProps<T>) {
       <RadioGroup size="l" {...radioGroupProps} onUpdate={handleRadioGroupUpdate} />
     </FormFieldWrapper>
   );
-}
+};
