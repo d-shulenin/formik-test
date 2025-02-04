@@ -8,7 +8,7 @@ const validationSchema = Yup.object({
 
 function App() {
   return (
-    <Form initialValues={{ age: "" }} onSubmit={(values) => console.log(values)} validationSchema={validationSchema}>
+    <Form initialValues={{ age: 10 }} onSubmit={(values) => console.log(values)} validationSchema={validationSchema}>
       <Form.InputField
         label="Age"
         name="age"
